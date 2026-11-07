@@ -20,6 +20,9 @@
   ],
   "author": "",
   "license": "ISC",
+  "engines": {
+  "node": ">=20"
+},
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
     "@ffmpeg/ffmpeg": "^0.12.15",
