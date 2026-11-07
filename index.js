@@ -9,6 +9,24 @@
  * - Baileys Library by @adiwajshing
  * - Pair Code implementation inspired by TechGod143 & DGXEON
  */
+const fs = require('fs');
+const path = require('path');
+(function restoreCreds() {
+  try {
+    const raw = (process.env.CREDS_JSON || '').trim();
+    if (!raw) return;
+    const dir = path.join(process.cwd(), 'session');
+    const file = path.join(dir, 'creds.json');
+    if (fs.existsSync(file)) return;
+    fs.mkdirSync(dir, { recursive: true });
+    const text = raw.startsWith('{') ? raw : Buffer.from(raw, 'base64').toString('utf8');
+    JSON.parse(text);
+    fs.writeFileSync(file, text);
+    console.log('creds restored');
+  } catch (e) {
+    console.log('creds restore failed:', e.message);
+  }
+})();
 require('./settings')
 const { Boom } = require('@hapi/boom')
 const fs = require('fs')
